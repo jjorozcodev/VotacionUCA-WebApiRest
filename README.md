@@ -1,2 +1,2 @@
-# MiVotoUCA-WebApiRest
-WebApi Rest para sistema distribuido: Mi Voto UCA
+# VotacionUCA-WebApiRest
+WebApi Rest para sistema distribuido: Votación UCA
