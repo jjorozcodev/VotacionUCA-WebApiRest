@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VotacionUCAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Candidatos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdVotacion" Type="int" Nullable="false" />
+          <Property Name="VotosObtenidos" Type="int" />
+        </EntityType>
+        <EntityType Name="Estudiantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodGrupo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumCarnet" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="Gestiona" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Votaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodGrupo" Type="varchar" MaxLength="10" />
+          <Property Name="Abierto" Type="bit" />
+        </EntityType>
+        <EntityType Name="Votos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstudiante" Type="int" Nullable="false" />
+          <Property Name="IdVotacion" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Candidatos_Votaciones">
+          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
+          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Votaciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidatos">
+              <PropertyRef Name="IdVotacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Votos_Estudiantes">
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
+          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="IdEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Votos_Votaciones">
+          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
+          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Votaciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="IdVotacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VotacionUCAModelStoreContainer">
+          <EntitySet Name="Candidatos" EntityType="Self.Candidatos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Votaciones" EntityType="Self.Votaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Votos" EntityType="Self.Votos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Candidatos_Votaciones" Association="Self.FK_Candidatos_Votaciones">
+            <End Role="Votaciones" EntitySet="Votaciones" />
+            <End Role="Candidatos" EntitySet="Candidatos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Votos_Estudiantes" Association="Self.FK_Votos_Estudiantes">
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Votos_Votaciones" Association="Self.FK_Votos_Votaciones">
+            <End Role="Votaciones" EntitySet="Votaciones" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VotacionUCAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Candidatos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdVotacion" Type="Int32" Nullable="false" />
+          <Property Name="VotosObtenidos" Type="Int32" />
+          <NavigationProperty Name="Votaciones" Relationship="Self.FK_Candidatos_Votaciones" FromRole="Candidatos" ToRole="Votaciones" />
+        </EntityType>
+        <EntityType Name="Estudiantes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumCarnet" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Votos" Relationship="Self.FK_Votos_Estudiantes" FromRole="Estudiantes" ToRole="Votos" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gestiona" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Votaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Abierto" Type="Boolean" />
+          <NavigationProperty Name="Candidatos" Relationship="Self.FK_Candidatos_Votaciones" FromRole="Votaciones" ToRole="Candidatos" />
+          <NavigationProperty Name="Votos" Relationship="Self.FK_Votos_Votaciones" FromRole="Votaciones" ToRole="Votos" />
+        </EntityType>
+        <EntityType Name="Votos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="IdVotacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Votos_Estudiantes" FromRole="Votos" ToRole="Estudiantes" />
+          <NavigationProperty Name="Votaciones" Relationship="Self.FK_Votos_Votaciones" FromRole="Votos" ToRole="Votaciones" />
+        </EntityType>
+        <Association Name="FK_Candidatos_Votaciones">
+          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
+          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Votaciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidatos">
+              <PropertyRef Name="IdVotacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Votos_Estudiantes">
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
+          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="IdEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Votos_Votaciones">
+          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
+          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Votaciones">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Votos">
+              <PropertyRef Name="IdVotacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VotacionUCA" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Candidatos" EntityType="Self.Candidatos" />
+          <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <EntitySet Name="Votaciones" EntityType="Self.Votaciones" />
+          <EntitySet Name="Votos" EntityType="Self.Votos" />
+          <AssociationSet Name="FK_Candidatos_Votaciones" Association="Self.FK_Candidatos_Votaciones">
+            <End Role="Votaciones" EntitySet="Votaciones" />
+            <End Role="Candidatos" EntitySet="Candidatos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Votos_Estudiantes" Association="Self.FK_Votos_Estudiantes">
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Votos_Votaciones" Association="Self.FK_Votos_Votaciones">
+            <End Role="Votaciones" EntitySet="Votaciones" />
+            <End Role="Votos" EntitySet="Votos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VotacionUCAModelStoreContainer" CdmEntityContainer="VotacionUCA">
+          <EntitySetMapping Name="Candidatos">
+            <EntityTypeMapping TypeName="VotacionUCAModel.Candidatos">
+              <MappingFragment StoreEntitySet="Candidatos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdVotacion" ColumnName="IdVotacion" />
+                <ScalarProperty Name="VotosObtenidos" ColumnName="VotosObtenidos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiantes">
+            <EntityTypeMapping TypeName="VotacionUCAModel.Estudiantes">
+              <MappingFragment StoreEntitySet="Estudiantes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodGrupo" ColumnName="CodGrupo" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="NumCarnet" ColumnName="NumCarnet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="VotacionUCAModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Gestiona" ColumnName="Gestiona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Votaciones">
+            <EntityTypeMapping TypeName="VotacionUCAModel.Votaciones">
+              <MappingFragment StoreEntitySet="Votaciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodGrupo" ColumnName="CodGrupo" />
+                <ScalarProperty Name="Abierto" ColumnName="Abierto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Votos">
+            <EntityTypeMapping TypeName="VotacionUCAModel.Votos">
+              <MappingFragment StoreEntitySet="Votos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="IdVotacion" ColumnName="IdVotacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
