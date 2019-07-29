@@ -14,5 +14,14 @@ namespace VotacionUCAWebApiRest.Controllers
         {
             return votacionBD.Usuarios.ToList();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                votacionBD.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -14,5 +14,20 @@ namespace VotacionUCAWebApiRest.Controllers
         {
             return votacionBD.Estudiantes.ToList();
         }
+
+        [HttpGet]
+        public Estudiantes Get(int id)
+        {
+            return votacionBD.Estudiantes.FirstOrDefault(e => e.Id == id);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                votacionBD.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
