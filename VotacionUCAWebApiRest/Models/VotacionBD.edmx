@@ -10,7 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdEstudiante" Type="int" Nullable="false" />
           <Property Name="IdVotacion" Type="int" Nullable="false" />
           <Property Name="VotosObtenidos" Type="int" />
         </EntityType>
@@ -37,8 +37,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CodGrupo" Type="varchar" MaxLength="10" />
-          <Property Name="Abierto" Type="bit" />
+          <Property Name="Abierto" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Votos">
           <Key>
@@ -48,6 +49,18 @@
           <Property Name="IdEstudiante" Type="int" Nullable="false" />
           <Property Name="IdVotacion" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Candidatos_Estudiantes">
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
+          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidatos">
+              <PropertyRef Name="IdEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Candidatos_Votaciones">
           <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
           <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
@@ -90,6 +103,10 @@
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Votaciones" EntityType="Self.Votaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Votos" EntityType="Self.Votos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Candidatos_Estudiantes" Association="Self.FK_Candidatos_Estudiantes">
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+            <End Role="Candidatos" EntitySet="Candidatos" />
+          </AssociationSet>
           <AssociationSet Name="FK_Candidatos_Votaciones" Association="Self.FK_Candidatos_Votaciones">
             <End Role="Votaciones" EntitySet="Votaciones" />
             <End Role="Candidatos" EntitySet="Candidatos" />
@@ -113,9 +130,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
           <Property Name="IdVotacion" Type="Int32" Nullable="false" />
           <Property Name="VotosObtenidos" Type="Int32" />
+          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Candidatos_Estudiantes" FromRole="Candidatos" ToRole="Estudiantes" />
           <NavigationProperty Name="Votaciones" Relationship="Self.FK_Candidatos_Votaciones" FromRole="Candidatos" ToRole="Votaciones" />
         </EntityType>
         <EntityType Name="Estudiantes">
@@ -126,6 +144,7 @@
           <Property Name="CodGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NombreCompleto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NumCarnet" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Candidatos" Relationship="Self.FK_Candidatos_Estudiantes" FromRole="Estudiantes" ToRole="Candidatos" />
           <NavigationProperty Name="Votos" Relationship="Self.FK_Votos_Estudiantes" FromRole="Estudiantes" ToRole="Votos" />
         </EntityType>
         <EntityType Name="Usuarios">
@@ -142,8 +161,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Abierto" Type="Boolean" />
+          <Property Name="Abierto" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Candidatos" Relationship="Self.FK_Candidatos_Votaciones" FromRole="Votaciones" ToRole="Candidatos" />
           <NavigationProperty Name="Votos" Relationship="Self.FK_Votos_Votaciones" FromRole="Votaciones" ToRole="Votos" />
         </EntityType>
@@ -157,6 +177,18 @@
           <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Votos_Estudiantes" FromRole="Votos" ToRole="Estudiantes" />
           <NavigationProperty Name="Votaciones" Relationship="Self.FK_Votos_Votaciones" FromRole="Votos" ToRole="Votaciones" />
         </EntityType>
+        <Association Name="FK_Candidatos_Estudiantes">
+          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
+          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiantes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidatos">
+              <PropertyRef Name="IdEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Candidatos_Votaciones">
           <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
           <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
@@ -199,6 +231,10 @@
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <EntitySet Name="Votaciones" EntityType="Self.Votaciones" />
           <EntitySet Name="Votos" EntityType="Self.Votos" />
+          <AssociationSet Name="FK_Candidatos_Estudiantes" Association="Self.FK_Candidatos_Estudiantes">
+            <End Role="Estudiantes" EntitySet="Estudiantes" />
+            <End Role="Candidatos" EntitySet="Candidatos" />
+          </AssociationSet>
           <AssociationSet Name="FK_Candidatos_Votaciones" Association="Self.FK_Candidatos_Votaciones">
             <End Role="Votaciones" EntitySet="Votaciones" />
             <End Role="Candidatos" EntitySet="Candidatos" />
@@ -222,7 +258,7 @@
             <EntityTypeMapping TypeName="VotacionUCAModel.Candidatos">
               <MappingFragment StoreEntitySet="Candidatos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
                 <ScalarProperty Name="IdVotacion" ColumnName="IdVotacion" />
                 <ScalarProperty Name="VotosObtenidos" ColumnName="VotosObtenidos" />
               </MappingFragment>
@@ -252,6 +288,7 @@
             <EntityTypeMapping TypeName="VotacionUCAModel.Votaciones">
               <MappingFragment StoreEntitySet="Votaciones">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="CodGrupo" ColumnName="CodGrupo" />
                 <ScalarProperty Name="Abierto" ColumnName="Abierto" />
               </MappingFragment>

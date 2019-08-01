@@ -22,8 +22,9 @@ namespace VotacionUCAWebApiRest.Models
         }
     
         public int Id { get; set; }
+        public string Descripcion { get; set; }
         public string CodGrupo { get; set; }
-        public Nullable<bool> Abierto { get; set; }
+        public bool Abierto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Candidatos> Candidatos { get; set; }

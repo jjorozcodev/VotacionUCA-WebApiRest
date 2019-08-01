@@ -4,12 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c92487c7cbde42b19a7cddde6f193789" Name="DiagramBD">
-        <EntityTypeShape EntityType="VotacionUCAModel.Candidatos" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VotacionUCAModel.Estudiantes" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="VotacionUCAModel.Usuarios" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VotacionUCAModel.Votaciones" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="7ae056437f214571860a21e5b329b990" Name="Diagram1">
+        <EntityTypeShape EntityType="VotacionUCAModel.Candidatos" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotacionUCAModel.Estudiantes" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotacionUCAModel.Usuarios" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="VotacionUCAModel.Votaciones" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="VotacionUCAModel.Votos" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="VotacionUCAModel.FK_Candidatos_Estudiantes" ManuallyRouted="false" />
         <AssociationConnector Association="VotacionUCAModel.FK_Candidatos_Votaciones" ManuallyRouted="false" />
         <AssociationConnector Association="VotacionUCAModel.FK_Votos_Estudiantes" ManuallyRouted="false" />
         <AssociationConnector Association="VotacionUCAModel.FK_Votos_Votaciones" ManuallyRouted="false" />

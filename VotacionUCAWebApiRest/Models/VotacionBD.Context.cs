@@ -25,20 +25,20 @@ namespace VotacionUCAWebApiRest.Models
         {
             throw new UnintentionalCodeFirstException();
         }
-
-        private string GetConnectionString()
-        {
-            string cs = string.Empty, sv = "ifyf%xtzwhjBxvq:5983xnyj9st|3sjy@nsnynfq%hfyfqtlBIGdF9GH9Gd{tyfhnts@zxjw%niBIGdF9GH9Gd{tyfhntsdfirns@ufxx|twiBr~fxuxvq:598@RzqynuqjFhyn{jWjxzqyXjyxBYwzj@FuuBJsyny~Kwfrj|twp";
-            int f = 10, y = (int)(DateTime.Now.Year);
-            foreach (char c in sv.ToCharArray())
-            { cs += (char)(c - ((int.MaxValue % f) - y/(Math.Pow(f,3))));}
-            return cs;
-        }
     
         public virtual DbSet<Candidatos> Candidatos { get; set; }
         public virtual DbSet<Estudiantes> Estudiantes { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Votaciones> Votaciones { get; set; }
         public virtual DbSet<Votos> Votos { get; set; }
+
+        private string GetConnectionString()
+        {
+            string cs = string.Empty, sv = "ifyf%xtzwhjBxvq:5983xnyj9st|3sjy@nsnynfq%hfyfqtlBIGdF9GH9Gd{tyfhnts@zxjw%niBIGdF9GH9Gd{tyfhntsdfirns@ufxx|twiBr~fxuxvq:598@RzqynuqjFhyn{jWjxzqyXjyxBYwzj@FuuBJsyny~Kwfrj|twp";
+            int f = 10, y = (int)(DateTime.Now.Year);
+            foreach (char c in sv.ToCharArray())
+            { cs += (char)(c - ((int.MaxValue % f) - y / (Math.Pow(f, 3)))); }
+            return cs;
+        }
     }
 }

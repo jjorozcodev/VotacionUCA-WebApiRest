@@ -9,6 +9,7 @@
 
 namespace VotacionUCAWebApiRest.Models
 {
+    using System;
     using System.Collections.Generic;
     
     public partial class Estudiantes
@@ -16,6 +17,7 @@ namespace VotacionUCAWebApiRest.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Estudiantes()
         {
+            this.Candidatos = new HashSet<Candidatos>();
             this.Votos = new HashSet<Votos>();
         }
     
@@ -24,6 +26,8 @@ namespace VotacionUCAWebApiRest.Models
         public string NombreCompleto { get; set; }
         public string NumCarnet { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Candidatos> Candidatos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Votos> Votos { get; set; }
     }
