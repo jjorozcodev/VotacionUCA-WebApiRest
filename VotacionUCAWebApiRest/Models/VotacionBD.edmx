@@ -12,7 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdEstudiante" Type="int" Nullable="false" />
           <Property Name="IdVotacion" Type="int" Nullable="false" />
-          <Property Name="VotosObtenidos" Type="int" />
+          <Property Name="VotosObtenidos" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Estudiantes">
           <Key>
@@ -49,76 +49,12 @@
           <Property Name="IdEstudiante" Type="int" Nullable="false" />
           <Property Name="IdVotacion" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Candidatos_Estudiantes">
-          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
-          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estudiantes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Candidatos">
-              <PropertyRef Name="IdEstudiante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Candidatos_Votaciones">
-          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
-          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Votaciones">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Candidatos">
-              <PropertyRef Name="IdVotacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Votos_Estudiantes">
-          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
-          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estudiantes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Votos">
-              <PropertyRef Name="IdEstudiante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Votos_Votaciones">
-          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
-          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Votaciones">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Votos">
-              <PropertyRef Name="IdVotacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="VotacionUCAModelStoreContainer">
           <EntitySet Name="Candidatos" EntityType="Self.Candidatos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Votaciones" EntityType="Self.Votaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Votos" EntityType="Self.Votos" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Candidatos_Estudiantes" Association="Self.FK_Candidatos_Estudiantes">
-            <End Role="Estudiantes" EntitySet="Estudiantes" />
-            <End Role="Candidatos" EntitySet="Candidatos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Candidatos_Votaciones" Association="Self.FK_Candidatos_Votaciones">
-            <End Role="Votaciones" EntitySet="Votaciones" />
-            <End Role="Candidatos" EntitySet="Candidatos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Votos_Estudiantes" Association="Self.FK_Votos_Estudiantes">
-            <End Role="Estudiantes" EntitySet="Estudiantes" />
-            <End Role="Votos" EntitySet="Votos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Votos_Votaciones" Association="Self.FK_Votos_Votaciones">
-            <End Role="Votaciones" EntitySet="Votaciones" />
-            <End Role="Votos" EntitySet="Votos" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -132,9 +68,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
           <Property Name="IdVotacion" Type="Int32" Nullable="false" />
-          <Property Name="VotosObtenidos" Type="Int32" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Candidatos_Estudiantes" FromRole="Candidatos" ToRole="Estudiantes" />
-          <NavigationProperty Name="Votaciones" Relationship="Self.FK_Candidatos_Votaciones" FromRole="Candidatos" ToRole="Votaciones" />
+          <Property Name="VotosObtenidos" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Estudiantes">
           <Key>
@@ -144,8 +78,6 @@
           <Property Name="CodGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NombreCompleto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NumCarnet" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Candidatos" Relationship="Self.FK_Candidatos_Estudiantes" FromRole="Estudiantes" ToRole="Candidatos" />
-          <NavigationProperty Name="Votos" Relationship="Self.FK_Votos_Estudiantes" FromRole="Estudiantes" ToRole="Votos" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -164,8 +96,6 @@
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodGrupo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Abierto" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Candidatos" Relationship="Self.FK_Candidatos_Votaciones" FromRole="Votaciones" ToRole="Candidatos" />
-          <NavigationProperty Name="Votos" Relationship="Self.FK_Votos_Votaciones" FromRole="Votaciones" ToRole="Votos" />
         </EntityType>
         <EntityType Name="Votos">
           <Key>
@@ -174,79 +104,13 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
           <Property Name="IdVotacion" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Estudiantes" Relationship="Self.FK_Votos_Estudiantes" FromRole="Votos" ToRole="Estudiantes" />
-          <NavigationProperty Name="Votaciones" Relationship="Self.FK_Votos_Votaciones" FromRole="Votos" ToRole="Votaciones" />
         </EntityType>
-        <Association Name="FK_Candidatos_Estudiantes">
-          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
-          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estudiantes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Candidatos">
-              <PropertyRef Name="IdEstudiante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Candidatos_Votaciones">
-          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
-          <End Role="Candidatos" Type="Self.Candidatos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Votaciones">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Candidatos">
-              <PropertyRef Name="IdVotacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Votos_Estudiantes">
-          <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="1" />
-          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estudiantes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Votos">
-              <PropertyRef Name="IdEstudiante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Votos_Votaciones">
-          <End Role="Votaciones" Type="Self.Votaciones" Multiplicity="1" />
-          <End Role="Votos" Type="Self.Votos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Votaciones">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Votos">
-              <PropertyRef Name="IdVotacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="VotacionUCA" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Candidatos" EntityType="Self.Candidatos" />
           <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <EntitySet Name="Votaciones" EntityType="Self.Votaciones" />
           <EntitySet Name="Votos" EntityType="Self.Votos" />
-          <AssociationSet Name="FK_Candidatos_Estudiantes" Association="Self.FK_Candidatos_Estudiantes">
-            <End Role="Estudiantes" EntitySet="Estudiantes" />
-            <End Role="Candidatos" EntitySet="Candidatos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Candidatos_Votaciones" Association="Self.FK_Candidatos_Votaciones">
-            <End Role="Votaciones" EntitySet="Votaciones" />
-            <End Role="Candidatos" EntitySet="Candidatos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Votos_Estudiantes" Association="Self.FK_Votos_Estudiantes">
-            <End Role="Estudiantes" EntitySet="Estudiantes" />
-            <End Role="Votos" EntitySet="Votos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Votos_Votaciones" Association="Self.FK_Votos_Votaciones">
-            <End Role="Votaciones" EntitySet="Votaciones" />
-            <End Role="Votos" EntitySet="Votos" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -318,7 +182,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
