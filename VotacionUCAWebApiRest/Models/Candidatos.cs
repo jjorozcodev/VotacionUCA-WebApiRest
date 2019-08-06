@@ -17,9 +17,6 @@ namespace VotacionUCAWebApiRest.Models
         public int Id { get; set; }
         public int IdEstudiante { get; set; }
         public int IdVotacion { get; set; }
-        public Nullable<int> VotosObtenidos { get; set; }
-    
-        public virtual Estudiantes Estudiantes { get; set; }
-        public virtual Votaciones Votaciones { get; set; }
+        public int VotosObtenidos { get; set; }
     }
 }

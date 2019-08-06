@@ -14,21 +14,9 @@ namespace VotacionUCAWebApiRest.Models
     
     public partial class Votaciones
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Votaciones()
-        {
-            this.Candidatos = new HashSet<Candidatos>();
-            this.Votos = new HashSet<Votos>();
-        }
-    
         public int Id { get; set; }
         public string Descripcion { get; set; }
         public string CodGrupo { get; set; }
         public bool Abierto { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidatos> Candidatos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Votos> Votos { get; set; }
     }
 }
