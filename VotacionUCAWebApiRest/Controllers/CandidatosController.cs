@@ -9,6 +9,7 @@ using VotacionUCAWebApiRest.Models;
 
 namespace VotacionUCAWebApiRest.Controllers
 {
+    [Authorize]
     public class CandidatosController : ApiController
     {
         private VotacionUCA votacionBD = new VotacionUCA();

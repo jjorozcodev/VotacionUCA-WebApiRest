@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using VotacionUCAWebApiRest.Controllers;
 
 namespace VotacionUCAWebApiRest
 {
@@ -13,6 +14,8 @@ namespace VotacionUCAWebApiRest
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.MessageHandlers.Add(new TokenValidationHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
